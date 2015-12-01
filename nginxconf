@@ -1,0 +1,16 @@
+
+#前台
+rewrite "^/about.html$" /index.php/Index/aboutMe last;
+rewrite "^/note.html$" /index.php/Note/index last;
+rewrite "^/catlist/" /index.php/Article/articleList last;
+rewrite "^/article/([0-9]{0,}).html" /index.php/Article/detail/id/$1 last;
+location ^~ /index.php {
+   rewrite "^/index.php/(.*)$" /index.php?s=$1 last;
+}
+location ^~ /iadmin.php {
+   rewrite "^/iadmin.php/(.*)$" /iadmin.php?s=$1 last;
+}
+if (!-e $request_filename) {
+   rewrite "^(.*)$" /index.php?s=$1 last;
+}
+
